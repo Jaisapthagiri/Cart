@@ -15,12 +15,13 @@ export const AppContextProvider = ({ children }) => {
     const [showUserLogin, setShowUserLogin] = useState(false)
     const [products, setProducts] = useState([])
     const [cartItems, setCartItems] = useState({})
+    const [searchQuery, setSearchQuery] = useState({})
 
     const fetchedProduct = async () => {
         setProducts(dummyProducts)
     }
 
-    const addToCart = () => {
+    const addToCart = (itemId) => {
         let cartData = structuredClone(cartItems)
 
         if (cartData[itemId]) {
@@ -28,7 +29,7 @@ export const AppContextProvider = ({ children }) => {
         } else {
             cartData[itemId] = 1
         }
-        setCartItems[cartData]
+        setCartItems(cartData)
         toast.success("Added To Cart")
     }
 
@@ -58,7 +59,7 @@ export const AppContextProvider = ({ children }) => {
 
     const value = {
         navigate, user, setUser, isSeller, setIsSeller, showUserLogin
-        , setShowUserLogin, products, currency, addToCart, updateCartItem, removeFromCart, cartItems
+        , setShowUserLogin, products, currency, addToCart, updateCartItem, removeFromCart, cartItems , searchQuery , setSearchQuery
     }
 
     return <AppContext.Provider value={value}>
