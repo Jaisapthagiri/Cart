@@ -3,7 +3,8 @@ import { useAppContext } from '../context/AppContext';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { assets } from '../assets/assets';
-import ProductCard from '../components/ProductCard';
+// import ProductCard from '../components/ProductCard';
+import RelatedProducts from './RelatedProducts';
 
 const ProductDetails = () => {
 
@@ -16,7 +17,6 @@ const ProductDetails = () => {
     const product = products.find((item) => item._id === id)
 
     useEffect(() => {
-
         if (products.length > 0) {
             let productsCopy = products.slice()
             productsCopy = productsCopy.filter((item) => product.category === item.category)
@@ -87,7 +87,7 @@ const ProductDetails = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col items-center mt-20" >
+            {/* <div className="flex flex-col items-center mt-20" >
                 <div className="flex flex-col items-center w-max">
                     <p className="text-3xl font-medium">Related Products</p>
                     <div className="w-20 h-0.5 bg-primary rounded-full mt-2"></div>
@@ -98,6 +98,9 @@ const ProductDetails = () => {
                     ))}
                 </div>
                 <button onClick={() => { navigate('/products'); scrollTo(0, 0) }} className="mx-auto cursor-pointer px-12 my-16 py-2.5 border rounded text-primary hover:bg-primary/10 transition">See More</button>
+            </div> */}
+            <div>
+                <RelatedProducts relatedProduct={relatedProduct} />
             </div>
         </div>
     )
