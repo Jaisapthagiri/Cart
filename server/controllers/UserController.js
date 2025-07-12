@@ -32,10 +32,9 @@ export const register = async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
-        res.json({ succes: false, message: error.message })
+        res.json({ success: false, message: error.message })
     }
 }
-
 
 export const login = async (req, res) => {
     try {
@@ -43,7 +42,7 @@ export const login = async (req, res) => {
         const { email, password } = req.body
 
         if (!email || !password) {
-            return res.json({ succes: false, message: "Email and Password are required" })
+            return res.json({ success: false, message: "Email and Password are required" })
         }
 
         const user = await User.findOne({ email })
@@ -69,7 +68,7 @@ export const login = async (req, res) => {
 
     } catch (error) {
         console.log(error.message);
-        res.json({ succes: false, message: error.message })
+        res.json({ success: false, message: error.message })
     }
 }
 
@@ -95,6 +94,6 @@ export const logout = async (req, res) => {
         return res.json({success : true , message : "Logged Out"})
     } catch (error) {
         console.log(error.message);
-        res.json({ succes: false, message: error.message })
+        res.json({ success: false, message: error.message })
     }
 } 
