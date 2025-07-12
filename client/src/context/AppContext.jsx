@@ -22,23 +22,35 @@ export const AppContextProvider = ({ children }) => {
 
     const fetchSeller = async () => {
         try {
-            const {data} = await axios.get('/api/seller/is-auth')
-            if(data.success){
+            const { data } = await axios.get('/api/seller/is-auth')
+            if (data.success) {
                 setIsSeller(true)
-            }else{
+            } else {
                 setIsSeller(false)
             }
         } catch (error) {
-                setIsSeller(false)
+            setIsSeller(false)
+        }
+    }
+
+    const fetchUser = async () => {
+        try {
+            const { data } = await axios.get('api/user/is-auth')
+            if (data.success) {
+                setUser(data.user)
+                setCartItems(data.user.cartItems)
+            }
+        } catch (error) {
+            setUser(null)
         }
     }
 
     const fetchProducts = async () => {
         try {
-            const {data} = await axios.get('/api/product/list')
-            if(data.success){
+            const { data } = await axios.get('/api/product/list')
+            if (data.success) {
                 setProducts(data.productList)
-            }else{
+            } else {
                 toast.error(data.message)
             }
         } catch (error) {
@@ -98,15 +110,34 @@ export const AppContextProvider = ({ children }) => {
     }
 
     useEffect(() => {
+        fetchUser()
         fetchSeller()
         fetchProducts()
     }, [])
+
+
+    useEffect(() => {
+        const updateCart = async () => {
+            try {
+                const { data } = await axios.post('/api/cart/update', { cartItems })
+                if (!data.success) {
+                    toast.error(data.message)
+                }
+            } catch (error) {
+                toast.error(error.message)
+            }
+        }
+
+        if(user){
+            updateCart()
+        }
+    }, [cartItems])
 
     const value = {
         navigate, user, setUser, isSeller, setIsSeller, showUserLogin,
         setShowUserLogin, products, currency, addToCart, updateCartItem,
         removeFromCart, cartItems, searchQuery, setSearchQuery,
-        getCartAmount, getCartCount , axios , fetchProducts
+        getCartAmount, getCartCount, axios, fetchProducts ,setCartItems
     }
 
     return <AppContext.Provider value={value}>

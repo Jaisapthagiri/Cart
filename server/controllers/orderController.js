@@ -3,7 +3,7 @@ import Product from "../models/product.js"
 
 export const placeOrderCOD = async (req, res) => {
     try {
-        const { userId } = req.userId
+        const userId = req.userId
         const { items, address } = req.body
 
         if (!address) {
@@ -13,10 +13,11 @@ export const placeOrderCOD = async (req, res) => {
             return res.json({ success: false, message: "Please select at least 1 item!" })
         }
 
-        let amount = await items.reduce(async (acc, item) => {
-            const product = await Product.findById(item.product)
-            retrun(await acc) + product.offerPrice * item.quantity
-        }, 0)
+        let amount = 0;
+        for (const item of items) {
+            const product = await Product.findById(item.product);
+            amount += product.offerPrice * item.quantity;
+        }
 
         amount += Math.floor(amount * 0.2)
 
@@ -28,17 +29,17 @@ export const placeOrderCOD = async (req, res) => {
             paymentType: "COD"
         })
 
-        return res.json({ success: true, message: "Order Places Successfullly" })
+        return res.json({ success: true, message: "Order Places Successfully" })
 
     } catch (error) {
-        return res.json({ success: fasle, message: error.message })
+        return res.json({ success: false, message: error.message })
 
     }
 }
 
 export const getUserOrder = async (req, res) => {
     try {
-        const { userId } = req.userId
+        const userId  = req.userId
         const orders = await Order.find({
             userId,
             $or: [{ paymentType: "COD" }, { isPaid: true }]
