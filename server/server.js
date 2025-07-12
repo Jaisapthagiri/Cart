@@ -20,7 +20,7 @@ await connectDB()
 await connectCloudinari()
 
 const allowedOrgins = ['http://localhost:5173','https://freshbasket-six.vercel.app']
-a
+
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({origin : allowedOrgins ,credentials : true}))
