@@ -25,6 +25,12 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors({origin : allowedOrgins ,credentials : true}))
 
+app.use((req, res, next) => {
+  console.log("Cookies:", req.cookies);
+  next();
+});
+
+
 app.get('/',(req , res) => 
     res.send("API is Working")
 )
