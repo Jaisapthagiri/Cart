@@ -28,7 +28,7 @@ export const register = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
-        return res.json({ success: true, user: { email: user.email, name: user.name } })
+        return res.json({ success: true, user: { email: user.email, name: user.name },token:token })
 
     } catch (error) {
         console.log(error.message);
@@ -65,7 +65,7 @@ export const login = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
-        return res.json({ success: true, user: { email: user.email, name: user.name } })
+        return res.json({ success: true, user: { email: user.email, name: user.name },token:token })
 
     } catch (error) {
         console.log(error.message);
