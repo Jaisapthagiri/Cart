@@ -55,7 +55,7 @@ export const login = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password)
 
         if (!isMatch)
-            return res.json({ succes: false, message: "Email or password does not match" })
+            return res.json({ success: false, message: "Email or password does not match" })
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' })
 
         res.cookie('token', token, {
