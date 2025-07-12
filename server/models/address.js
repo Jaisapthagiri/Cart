@@ -42,11 +42,9 @@ const addressSchema =  new mongoose.Schema({
         type: String,
         required : true
     },
-
 })
 
 
 const Address = mongoose.models.address || mongoose.model('address', addressSchema);
-
 
 export default Address;
