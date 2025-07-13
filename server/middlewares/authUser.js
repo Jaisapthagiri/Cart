@@ -4,22 +4,22 @@ const authUser = async (req, res, next) => {
     const { token } = req.cookies;
 
     if (!token) {
-        return res.status(401).json({ success: false, message: "Not Authorized - No token" });
+        return res.status(401).json({ success: false, message: "Not Authorized" });
     }
 
     try {
-        const tokenDecode = jwt.verify(token, process.env.JWT_SECRET);
+        const tokenDecode =await jwt.verify(token, process.env.JWT_SECRET);
 
         if (tokenDecode?.id) {
             req.userId = tokenDecode.id;
-            next();
         } else {
-            return res.status(401).json({ success: false, message: "Not Authorized - Invalid token" });
+            return res.status(400).json({ success: false, message: "Not Authorized" });
         }
+        next();
 
     } catch (error) {
-        console.error("JWT verification failed:", error.message);
-        return res.status(401).json({ success: false, message: "Invalid or expired token" });
+        console.error(error.message);
+        res.status(401).json({ success: false, message: error.message});
     }
 };
 

@@ -7,7 +7,7 @@ export const register = async (req, res) => {
         const { name, email, password } = req.body;
 
         if (!name || !email || !password) {
-            return res.json({ success: false, message: 'Missing Values' })
+            return res.status(400).json({ success: false, message: 'Missing Values' })
         }
 
         const existingUser = await User.findOne({ email })
@@ -28,7 +28,7 @@ export const register = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
-        return res.json({ success: true, user: { email: user.email, name: user.name },token:token })
+        return res.status(201).json({ success: true, user: { email: user.email, name: user.name },token:token })
 
     } catch (error) {
         console.log(error.message);
@@ -60,11 +60,11 @@ export const login = async (req, res) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production'? 'none' : 'strict',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
-        return res.json({ success: true, user: { email: user.email, name: user.name },token:token })
+        return res.status(201).json({ success: true, user: { email: user.email, name: user.name },token:token })
 
     } catch (error) {
         console.log(error.message);

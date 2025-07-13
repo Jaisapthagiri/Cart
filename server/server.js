@@ -10,8 +10,6 @@ import productRouter from './routes/productRoute.js';
 import cartRouter from './routes/cartRoute.js';
 import addressRouter from './routes/addressRoute.js';
 import orderRouter from './routes/orderRoute.js';
-// import dotenv from 'dotenv';
-// dotenv.config();
 
 const app = express()
 const PORT = process.env.PORT || 4000;
@@ -24,12 +22,6 @@ const allowedOrgins = ['http://localhost:5173','https://freshbasket-six.vercel.a
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({origin : allowedOrgins ,credentials : true}))
-
-app.use((req, res, next) => {
-  console.log("Cookies:", req.cookies);
-  next();
-});
-
 
 app.get('/',(req , res) => 
     res.send("API is Working")
