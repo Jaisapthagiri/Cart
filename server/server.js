@@ -17,7 +17,10 @@ const PORT = process.env.PORT || 4000;
 await connectDB()
 await connectCloudinari()
 
-const allowedOrgins = ['http://localhost:5173','https://freshbasket-six.vercel.app']
+const allowedOrgins = [
+  'http://localhost:5173',
+  'https://greenbasket-two.vercel.app'
+];
 
 app.use(express.json())
 app.use(cookieParser())
