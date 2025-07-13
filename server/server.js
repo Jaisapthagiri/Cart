@@ -19,8 +19,7 @@ await connectCloudinari()
 
 const allowedOrgins = [
   'http://localhost:5173',
-  'https://freshbasket-six.vercel.app',
-  'https://greenbasket-two.vercel.app' 
+   'https://freshbasket-kappa.vercel.app'
 ];
 
 
