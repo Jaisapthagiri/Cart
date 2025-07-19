@@ -28,7 +28,7 @@ export const register = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
-        return res.status(201).json({ success: true, user: { email: user.email, name: user.name },token:token })
+        return res.status(201).json({ success: true, user: { email: user.email, name: user.name }, token: token })
 
     } catch (error) {
         console.log(error.message);
@@ -64,7 +64,7 @@ export const login = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
-        return res.status(201).json({ success: true, user: { email: user.email, name: user.name },token:token })
+        return res.status(201).json({ success: true, user: { email: user.email, name: user.name }, token: token })
 
     } catch (error) {
         console.log(error.message);
@@ -75,7 +75,7 @@ export const login = async (req, res) => {
 
 export const isAuth = async (req, res) => {
     try {
-        const userId  = req.userId;
+        const userId = req.userId;
         const user = await User.findById(userId).select("-password")
         return res.json({ success: true, user })
     } catch (error) {
@@ -88,10 +88,10 @@ export const logout = async (req, res) => {
     try {
         res.clearCookie('token', {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
-        })
-        return res.json({success : true , message : "Logged Out"})
+            secure: true,
+            sameSite: 'None',
+        });
+        return res.json({ success: true, message: "Logged Out" })
     } catch (error) {
         console.log(error.message);
         res.json({ success: false, message: error.message })
