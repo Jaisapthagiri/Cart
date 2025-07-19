@@ -68,7 +68,7 @@ export const AppContextProvider = ({ children }) => {
         }
         setCartItems(cartData)
         toast.success("Added To Cart")
-    }
+    }   
 
     const updateCartItem = (itemId, quantity) => {
         let cartData = structuredClone(cartItems)
@@ -119,7 +119,7 @@ export const AppContextProvider = ({ children }) => {
     useEffect(() => {
         const updateCart = async () => {
             try {
-                const { data } = await axios.post('/api/cart/update', { cartItems })
+                await axios.post('/api/cart/update', { cartItems }, { withCredentials: true })
                 if (!data.success) {
                     toast.error(data.message)
                 }

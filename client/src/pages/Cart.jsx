@@ -15,14 +15,15 @@ const Cart = () => {
     const [paymentOption, setPaymentOption] = useState("COD");
 
     const getCart = () => {
-        let tempArray = []
-        for (const key in cartItems) {
-            const product = products.find((item) => item._id === key)
-            product.quantity = cartItems[key]
-            tempArray.push(product)
+    let tempArray = []
+    for (const key in cartItems) {
+        const product = products.find((item) => item._id === key)
+        if (product) {
+            tempArray.push({ ...product, quantity: cartItems[key] }) // clone and add quantity
         }
-        setCartArray(tempArray)
     }
+    setCartArray(tempArray)
+}
 
     const getUserAddress = async () => {
         try {
@@ -53,7 +54,7 @@ const Cart = () => {
                         product: item._id, quantity: item.quantity
                     })),
                     address: selectedAddress._id
-                })
+                },{ withCredentials: true })
 
                 if (data.success) {
                     toast.success(data.message)
@@ -69,7 +70,7 @@ const Cart = () => {
                         product: item._id, quantity: item.quantity
                     })),
                     address: selectedAddress._id
-                })
+                },{ withCredentials: true })
 
                 if (data.success) {
                     window.location.replace(data.url)
@@ -114,7 +115,8 @@ const Cart = () => {
                             <div className="flex items-center md:gap-6 gap-3">
                                 <div onClick={() => { navigate(`/products/${product.category.toLowerCase()}/${product._id}`); window.scrollTo(0, 0) }}
                                     className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded overflow-hidden">
-                                    <img className="max-w-full h-full object-cover" src={product.image[0]} alt={product.name} />
+                                    {/* <img className="max-w-full h-full object-cover" src={product.image[0]} alt={product.name} /> */}
+                                    <img className="max-w-full h-full object-cover" src={product.image?.[0]} alt={product.name} />
                                 </div>
                                 <div>
                                     <p className="hidden md:block font-semibold">{product.name}</p>
@@ -159,7 +161,7 @@ const Cart = () => {
                             {showAddress && (
                                 <div className="absolute top-12 py-1 bg-white border border-gray-300 text-sm w-full">
                                     {addresses.map((address, index) => (
-                                        <p onClick={() => { setSelectedAddress(address); setShowAddress(false) }} className="text-gray-500 p-2 hover:bg-gray-100">
+                                        <p key={index} onClick={() => { setSelectedAddress(address); setShowAddress(false) }} className="text-gray-500 p-2 hover:bg-gray-100">
                                             {address.street} , {address.city} , {address.state} , {address.country}
                                         </p>
                                     ))}

@@ -25,15 +25,15 @@ const Login = () => {
                 setShowUserLogin(false)
 
                 if (state === "register") {
-                    toast.success("User registered successfully!")
+                    toast.success("User registered successfully!");
+                } else {
+                    toast.success("Logged In!");
                 }
-
-                toast.success("Logged In!");
             } else {
                 toast.error(data.message)
             }
         } catch (error) {
-            toast.error(error.message)
+            toast.error(error?.response?.data?.message || error.message);
         }
     }
 

@@ -18,23 +18,23 @@ await connectDB()
 await connectCloudinari()
 
 const allowedOrgins = [
-  'http://localhost:5173',
-   'https://freshbasket-kappa.vercel.app'
+    'http://localhost:5173',
+    'https://freshbasket-kappa.vercel.app'
 ];
 
-app.use(cors({origin : allowedOrgins ,credentials : true}))
+app.use(cors({ origin: allowedOrgins, credentials: true }))
 app.use(express.json())
 app.use(cookieParser())
 
-app.get('/',(req , res) => 
+app.get('/', (req, res) =>
     res.send("API is Working")
 )
-app.use('/api/user',userRouter)
-app.use('/api/seller',sellerRouter)
-app.use('/api/product',productRouter)
-app.use('/api/cart',cartRouter)
-app.use('/api/address' , addressRouter)
-app.use('/api/order' , orderRouter)
+app.use('/api/user', userRouter)
+app.use('/api/seller', sellerRouter)
+app.use('/api/product', productRouter)
+app.use('/api/cart', cartRouter)
+app.use('/api/address', addressRouter)
+app.use('/api/order', orderRouter)
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`API is running on http://0.0.0.0:${PORT}`);
