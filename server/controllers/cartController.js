@@ -5,7 +5,7 @@ export const uploadCart = async (req, res) => {
         const userId = req.userId
         const { cartItems } = req.body
         if (!cartItems) {
-            res.status(400).json({ success: false, message: "Cart is Empty!" });
+            return res.status(400).json({ success: false, message: "Cart is Empty!" });
         }
         await User.findByIdAndUpdate(userId, { cartItems })
         res.json({ success: true, message: "Cart Updated" })

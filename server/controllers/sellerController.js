@@ -23,7 +23,7 @@ export const sellerLogin = async (req, res) => {
     }
 }
 
-export const isSeller = async (req , res) => {
+export const isSeller = async (req, res) => {
     try {
         return res.json({ success: true })
     } catch (error) {

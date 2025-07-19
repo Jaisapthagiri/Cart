@@ -8,7 +8,7 @@ const authUser = async (req, res, next) => {
     }
 
     try {
-        const tokenDecode =await jwt.verify(token, process.env.JWT_SECRET);
+        const tokenDecode = await jwt.verify(token, process.env.JWT_SECRET);
 
         if (tokenDecode?.id) {
             req.userId = tokenDecode.id;

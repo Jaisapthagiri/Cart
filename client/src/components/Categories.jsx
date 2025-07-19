@@ -20,7 +20,6 @@ const Categories = () => {
                         <p className='text-sm font-medium'>{category.text}</p>
                     </div>
                 ))}
-
             </div>
         </div>
     )
