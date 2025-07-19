@@ -19,7 +19,7 @@ await connectCloudinari()
 
 const allowedOrgins = [
     'http://localhost:5173',
-    'https://freshbasket-six.vercel.app'
+    'https://freshbasket-kappa.vercel.app',
 ];
 
 app.use(cors({ origin: allowedOrgins, credentials: true }))
